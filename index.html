@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+		<head>
+		<meta charset="utf-8">
+		<title>Migrating WordPress</title>
+		<meta name="description" content="Whether it is changing hosts, moving a client from staging to production, or moving off WordPress.com and onto your own self hosted WordPress install, there almost always comes a time that you'll need to move WordPress.  This month, learn about exporting the content of your WordPress site and importing it into a new one. Included in this will be a discussion on why you might need to migrate and tips to think about to make your migration smooth and easy.">
+		<meta name="author" content="Russell Heimlich">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+		<style>
+		.reveal section img.noborder {
+			border:0 none;
+			box-shadow:none;
+		}
+		.reveal p.via {
+			font-size:75%;
+			margin-top:1em;
+		}
+		</style>
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="css/prism.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		</head>
+
+		<body>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h1>Migrating WordPress</h1>
+			<p>presented at</p>
+			<p><a href="http://www.meetup.com/wordpressdc/events/107712332/" target="_blank">WordPress DC Meetup Group</a></p>
+			<p> </p>
+			<p>March 12, 2013</p>
+		</section>
+		<section>
+			<h2>Hi, I'm Russell Heimlich</h2>
+			<ul>
+				<li class="fragment">Lead technical figure-outer at
+					<a href="http://www.pewresearch.org" target="_blank">Pew Research Center</a>
+					<br><br>
+				</li>
+				<li class="fragment">Creator of <a href="http://dummyimage.com" target="_blank">http://dummyimage.com</a><br><br>
+				</li>
+				<li class="fragment">Left handed</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>WordPress sure is great&hellip;</h2>
+			<ul>
+				<li class="fragment">Plugins<br><br></li>
+				<li class="fragment">Themes<br><br></li>
+				<li class="fragment"><acronym title="What You See Is What You Get">WYSIWYG</acronym> Editing</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>The Rockstars of WordPress</h2>
+			<img src="img/rockstar.jpg">
+		</section>
+		
+		<section>
+			<h1>So Import/Export is&hellip;</h1>
+		</section>
+		
+		<section>
+			<h2>The Roadies of WordPress</h2>
+			<img src="img/roadies.jpg">
+		</section>
+		
+		<section>
+			<h2>What is a Roadie?</h2>
+			
+			<blockquote cite="http://www.urbandictionary.com/define.php?term=roadie">
+				<p>An individual who is responsible for setting up, tearing down, and generally maintaining the equipment for a band.</p>
+			</blockquote>
+		</section>
+		
+		<section>
+			<h2>Without roadies, the rockstars can't perform at different venues.</h2>
+		</section>
+		
+		<section>
+			<h1>Without an export you're content is stuck!</h1>
+		</section>
+		
+		<section>
+			<h2>How Content is Stored within WordPress</h2>
+		</section>
+		
+		<section>
+			<h2>The Database</h2>
+			<ul>
+				<li class="fragment">Content (Post/Page Stuff, custom fields)<br><br></li>
+				<li class="fragment">Comments<br><br></li>
+				<li class="fragment">Terms and Relationships<br><br></li>
+				<li class="fragment">Options/Widgets/Settings<br><br></li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>The Main Folders</h2>
+			<img src="img/wordpress-folders.png">
+		</section>
+		
+		<section>
+			<h2>wp-content Holds Your Stuff!</h2>
+			<img src="img/wordpress-folders-arrow.png">
+		</section>
+		
+		<section>
+			<h2>Inside of wp-content</h2>
+			<img src="img/inside-wp-content.png">
+			<ul>
+				<li class="fragment">Uploads holds all of your uploaded files</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Media are stored in the Uploads folder<br><br>
+But they are referenced by Posts stored in the database.</h2>
+		</section>
+		
+		<section>
+			<h2>Any questions so far?</h2>
+		</section>
+		
+		<section>
+			<h2>Why might I need Export/Import?</h2>
+			<ul>
+				<li class="fragment">Changing Web Hosts</li>
+				<li class="fragment">Moving from WordPress.com to your own WordPress site</li>
+				<li class="fragment">Set-up a staging or development version of your site</li>
+				<li class="fragment">Moving from some other <acronym title="content management system">CM</acronym>S to WordPress</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Where are the Export/Import features?</h2>
+			<img src="img/import-export-menu.png">
+			<p>Under the <em>Tools</em> menu.</p>
+		</section>
+		
+		<section>
+			<h1>Exporting</h1>
+			<p>Getting stuff out of WordPress</p>
+		</section>
+		
+		<section>
+			<h2>The Export Screen</h2>
+			<img src="img/the-basic-export-screen.png">
+		</section>
+		
+		<section>
+			<h2>WordPress eXtended RSS (WXR) File</h2>
+			<p>An XML file that WordPress uses to import or export content.</p>
+			<p class="via">via <a href="http://codex.wordpress.org/Tools_Export_Screen">Codex: Tools Export Screen</a></p>
+		</section>
+		
+		<section>
+			<h2>A WXR File Includes</h2>
+			<ul>
+				<li class="fragment">Posts, Pages, and Custom Post Types<br><br></li>
+				<li class="fragment">Comments<br><br></li>
+				<li class="fragment">Custom Fields<br><br></li>
+				<li class="fragment">Categories, Tags, and Custom Taxonomies<br><br></li>
+				<li class="fragment">Users</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>A WXR File <strong>Doesn't</strong> Include</h2>
+			<ul>
+				<li class="fragment">Your Uploaded Media Files<br><br></li>
+				<li class="fragment">Most Options/Settings<br><br></li>
+				<li class="fragment">Widgets<br><br></li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>How can we migrate those things not included in the WXR file?</h2>
+		</section>
+		
+		<section>
+			<h2>Uploaded Media Files</h2>
+			<ol>
+				<li>Download them on import<br><br></li>
+				<li>Copy your <em>wp-content/uploads</em> folder<br><br></li>
+			</ol>
+		</section>
+		
+		<section>
+			<h2>Downloading Media Files on Import</h2>
+			<img src="img/import-file-attachments.png">
+			<p>Handy when it works but unreliable.</p>
+		</section>
+		
+		<section>
+			<h2>Copying the Uploads Folder</h2>
+			<ul>
+				<li class="fragment"><acronym title="File Transfer Protocol">FTP</acronym> into your server<br><br></li>
+				<li class="fragment">Navigate to <em>/wp-content</em><br><br></li>
+				<li class="fragment">Download the <em>Uploads</em> folder to your computer<br><br></li>
+				<li class="fragment">Might as well download the entire <em>wp-content</em> folder</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Exporting Options/Settings</h2>
+			<ul>
+				<li class="fragment">Lots of settings aren't exported<br><br></li>
+				<li class="fragment">Some plugins offer setting import/export functionality<br><br></li>
+				<li class="fragment">Document the settings and recreate them by hand</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Exporting Widgets</h2>
+			<img src="img/widget-export-plugin.png">
+			<p>There's a plugin for that!</p>
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/widget-settings-importexport/">http://wordpress.org/extend/plugins/widget-settings-importexport/</a></p>
+		</section>
+		
+		<section>
+			<h2>WXR Export Can Fail</h2>
+			<ul>
+				<li class="fragment">Too much stuff!<br><br></li>
+				<li class="fragment">Export script can timeout<br><br></li>
+				<li class="fragment">Server can run out of memory</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Consider Exporting in Chunks</h2>
+			<img src="img/advanced-export-plugin.png" style="width:50%;">
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/advanced-export-for-wp-wpmu/">http://wordpress.org/extend/plugins/advanced-export-for-wp-wpmu/</a></p>
+		</section>
+		
+		<section>
+			<h1>Straight Database Backup</h1>
+			<p>If the WXR Export File doesn't work, you'll have to backup the database.</p>
+		</section>
+		
+		<section>
+			<h2 style="text-transform:none;">WP-DBManager</h2>
+			<img src="img/wp-db-manager-plugin.png">
+			<p>Plugin to export your database from within the WordPress admin.</p>
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/wp-dbmanager/">http://wordpress.org/extend/plugins/wp-dbmanager/</a></p>
+		</section>
+		
+		<section>
+			<h2>Sequel Pro (Mac only)</h2>
+			<img src="img/sequel-pro.png">
+			<p class="via">via <a href="http://www.sequelpro.com/">sequelpro.com</a></p>
+		</section>
+		
+		<section>
+			<h2 style="text-transform:none;">phpMyAdmin</h2>
+			<img src="img/phpmyadmin.png">
+			<p class="via">via <a href="http://www.phpmyadmin.net/home_page/index.php">phpmyadmin.net</a></p>
+		</section>
+		
+		<section>
+			<h1>Importing</h1>
+			<p>Getting stuff into WordPress</p>
+		</section>
+		
+		<section>
+			<h2>&ldquo;Built-in&rdquo; Import Plugins</h2>
+			<img src="img/builtin-import-plugins.png">
+		</section>
+		
+		<section>
+			<h2>Variety of Other Import Plugins</h2>
+			<img src="img/import-plugins.png">
+		</section>
+		
+		<section>
+			<h2>Importing Your WXR File</h2>
+			<ol>
+				<li class="fragment">Upload the file<br><br></li>
+				<li class="fragment">Map users from the WXR file to users in your new site<br><br></li>
+				<li class="fragment">Import attachments?<br><br></li>
+				<li class="fragment">View your imported items</li>
+			</ol>
+		</section>
+		
+		<section>
+			<h2>If you downloaded your Uploads folder&hellip;</h2>
+			<p>Upload it to your new site so the media files are in place.</p>
+		</section>
+		
+		<section>
+			<h1>Migrating</h1>
+			<p>From another CMS to WordPress.</p>
+		</section>
+		
+		<section>
+			<h1>Helpful Tools</h1>
+			<p>Plugins and resources that come in handy after a migration.</p>
+		</section>
+		
+		<section>
+			<h2>Cleaning Up with Search Regex</h2>
+			<img src="img/search-regex.png">
+			<p>Replace references to your old domain to your new domain.</p>
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/search-regex/">http://wordpress.org/extend/plugins/search-regex/</a></p>
+		</section>
+		
+		<section>
+			<h2>Preview Your Search & Replaces</h2>
+			<img src="img/search-regex-preview.png">
+			<p>But be careful, there is no undo!</p>
+		</section>
+		
+		<section>
+			<h2>Pattern Match with Regular Expressions</h2>
+			<img src="img/regex-tester.png">
+			<p class="via">via <a href="http://regex.larsolavtorvik.com/">http://regex.larsolavtorvik.com/</a></p>
+		</section>
+		
+		<section>
+			<h2>Handle Redirects with Redirection</h2>
+			<img src="img/redirection-plugin.png">
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/redirection/">http://wordpress.org/extend/plugins/redirection/</a></p>
+		</section>
+		
+		<section>
+			<h1>Link Monitoring Tools</h1>
+			<p>To see what broke after a migration.</p>
+		</section>
+		
+		<section>
+			<h2>Broken Link Checker</h2>
+			<img src="img/broken-link-checker-plugin.png">
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/broken-link-checker/">http://wordpress.org/extend/plugins/broken-link-checker/</a></p>
+		</section>
+		
+		<section>
+			<h2>Google Webmasters</h2>
+			<img src="img/google-webmaster.png">
+			<p class="via">via <a href="https://www.google.com/webmasters/">google.com/webmasters</a></p>
+		</section>
+		
+		<section>
+			<h1>Questions?</h1>
+			<p>Tweet me, <a href="http://www.twitter.com/kingkool68/" target="_blank">@kingkool68</a>, or <a href="http://www.russellheimlich.com/contact.html" target="_blank">contact me</a>.</p>
+		</section>
+	</div>
+</div>
+
+<script src="lib/js/head.min.js"></script> 
+<script src="js/reveal.min.js"></script> 
+<script src="js/prism.js"></script> 
+<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme || 'sky', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+</body>
+</html>
