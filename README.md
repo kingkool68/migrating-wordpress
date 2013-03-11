@@ -1,6 +1,8 @@
-jquery-events-presentation
+Migrating WordPress Presentation
 ==========================
 
-### [View the slides](http://kingkool68.com/jquery-events-presentation) ###
+### [View the slides](http://kingkool68.com/) ###
 
-This repo contains the slides from my talk about jQuery Events as part of [DC jQuery Meetup #18 Back to Basics](http://www.meetup.com/DC-jQuery-Users-Group/events/87412532/) 
+Whether it is changing hosts, moving a client from staging to production, or moving off WordPress.com and onto your own self hosted WordPress install, there almost always comes a time that you'll need to move WordPress.  This month, learn about exporting the content of your WordPress site and importing it into a new one. Included in this will be a discussion on why you might need to migrate and tips to think about to make your migration smooth and easy.
+
+This repo contains the slides from my [WordPress DC](http://www.meetup.com/wordpressdc/) talk about [Migrating WordPress ](http://www.meetup.com/wordpressdc/events/107712332/) 
