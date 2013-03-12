@@ -154,7 +154,7 @@ But they are referenced by Posts stored in the database.</h2>
 		
 		<section>
 			<h1>Exporting</h1>
-			<p>Getting stuff out of WordPress</p>
+			<p>Getting stuff out of WordPress.</p>
 		</section>
 		
 		<section>
@@ -273,7 +273,7 @@ But they are referenced by Posts stored in the database.</h2>
 		
 		<section>
 			<h1>Importing</h1>
-			<p>Getting stuff into WordPress</p>
+			<p>Getting stuff into WordPress.</p>
 		</section>
 		
 		<section>
@@ -307,6 +307,105 @@ But they are referenced by Posts stored in the database.</h2>
 		</section>
 		
 		<section>
+			<h2>See if anyone has done the heavy lifting</h2>
+			<ul>
+				<li class="fragment">Search the WordPress plugin repository for an importer<br><br></li>
+				<li class="fragment">Search Google to see if anyone has done the same type of migration</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h1>Otherwise Prepare To Roll Your Own Solution</h1>
+		</section>
+		
+		<section>
+			<p><strong>WARNING:</strong> This is Developer Territory</p>
+		</section>
+		
+		<section>
+			<h2>A database dump of the old site might be helpful&hellip;</h2>
+			<p class="fragment">but you'll probably be better off scraping the site instead!</p>
+		</section>
+		
+		<section>
+			<h2>Prep Work</h2>
+			<ul>
+				<li class="fragment">What are the different pieces?<br><br></li>
+				<li class="fragment">How does the content map to WordPress?<br><br></li>
+				<li class="fragment">What custom functionality do you need?<br><br></li>
+				<li class="fragment">How will the old content redirect to the new content?<br><br></li>
+				<li class="fragment">What content can die?</li>
+			</ul>
+		</section>
+		
+		<section>
+			<img src="img/journalism.jpg">
+		</section>
+		
+		<section>
+			<h1>Imagine the Post Editor</h1>
+		</section>
+		
+		<section>
+			<img src="img/journalism-content.jpg">
+		</section>
+		
+		<section>
+			<img src="img/journalism-title.jpg">
+		</section>
+		
+		<section>
+			<img src="img/journalism-date.jpg">
+		</section>
+		
+		<section>
+			<img src="img/journalism-subhead.jpg">
+		</section>
+		
+		<section>
+			<h1>How do we scrape a site?</h1>
+		</section>
+		
+		<section>
+			<h2>Set-up A Local Environment</h2>
+			<ul>
+				<li><a href="http://www.wampserver.com/en/">WampServer</a> Windows<br><br></li>
+				<li><a href="http://www.mamp.info/en/index.html">MAMP</a> Mac<br><br></li>
+				<li><a href="http://www.ampps.com/">AMPPS</a> Windows + Mac</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Write a Script to Download and Parse Pages</h2>
+			<ul>
+				<li><a href="http://simplehtmldom.sourceforge.net/">simple_html_dom</a> - Download HTML pages and parse them like jQuery.<br><br></li>
+				<li><a href="http://www.php.net/manual/en/book.curl.php">cURL</a> - For downloading images or other contnet.</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Tips for your Scraping Script</h2>
+			<ul>
+				<li class="fragment">Makes it modular<br><br></li>
+				<li class="fragment">Use <acronym title="Asynchronous JavaScript and XML">AJAX</acronym> calls to prevent your PHP script from timing out<br><br></li>
+				<li class="fragment">Store your data in a database so you can use it again later</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Test, test, test!</h2>
+			<p>It will take many runs to get it just right.</p>
+		</section>
+		
+		<section>
+			<h2>After You Have Scraped All of the HTML&hellip;</h2>
+			<ul>
+				<li class="fragment">Export a WXR file using PHP's <a href="http://php.net/manual/en/book.simplexml.php">SimpleXML</a><br><br></li>
+				<li class="fragment">Build an import script using <a href="http://codex.wordpress.org/Function_Reference">WordPress API calls</a></li>
+			</ul>
+		</section>
+		
+		<section>
 			<h1>Helpful Tools</h1>
 			<p>Plugins and resources that come in handy after a migration.</p>
 		</section>
@@ -334,6 +433,13 @@ But they are referenced by Posts stored in the database.</h2>
 			<h2>Handle Redirects with Redirection</h2>
 			<img src="img/redirection-plugin.png">
 			<p class="via">via <a href="http://wordpress.org/extend/plugins/redirection/">http://wordpress.org/extend/plugins/redirection/</a></p>
+		</section>
+		
+		<section>
+			<h2>Add from Server Plugin</h2>
+			<img src="img/add-from-server-plugin.png">
+			<p>Import images via a folder on your server.</p>
+			<p class="via">via <a href="http://wordpress.org/extend/plugins/add-from-server/">http://wordpress.org/extend/plugins/add-from-server/</a></p>
 		</section>
 		
 		<section>
